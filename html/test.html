@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>Get Location</p>
+    <button onclick="getLocation()">get Location</button>
+    <button onclick="gotoLocation()">Go TO Location</button>
+
+    <p id="log"></p>
+    <p id="long"></p>
+    <p id="lat"></p>
+
+    <hr />
+    <div
+      id="drab"
+      style="border: 1px solid; padding: 10px; width: 500px; height: 400px"
+      ondrop="drop(event)"
+      ondragover="event.preventDefault()"
+    ></div>
+    <img
+      src="/images/3.jpg"
+      draggable="true"
+      ondragstart="start(this)"
+      alt=""
+      srcset=""
+    />
+    <img
+      src="/images/4.jpg"
+      draggable="true"
+      ondragstart="start(this)"
+      alt=""
+      srcset=""
+    />
+    <script>
+      var draggedemen;
+      function start(draggable) {
+        draggedemen = draggable;
+      }
+
+      function drop(event) {
+        event.preventDefault();
+        event.target.appendChild(draggedemen);
+      }
+
+      var longitudeCoords = 0;
+      var latitudeCoords = 0;
+
+      function getLocation() {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          longitudeCoords = position.coords.longitude;
+          latitudeCoords = position.coords.latitude;
+          document.getElementById("long").innerHTML =
+            "Logitude: " + longitudeCoords;
+          document.getElementById("lat").innerHTML =
+            "Latitude: " + latitudeCoords;
+        });
+        document.getElementById("log").innerHTML = "Getting Location...";
+      }
+
+      function gotoLocation() {
+        var url =
+          "http://maps.google.com/maps?q=" +
+          latitudeCoords +
+          "," +
+          longitudeCoords;
+        alert(url);
+        window.open(url, "_blank");
+      }
+
+      function showPosition(x) {
+        x.innerHTML = `Latitude ${x.coords.latitude}
+          Longitude ${x.coords.longitude}`;
+      }
+    </script>
+  </body>
+</html>

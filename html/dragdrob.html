@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      style="border: 1px solid black; width: 400px; height: 400px"
+      ondragover="event.preventDefault()"
+      ondrop="dropimg(event)"
+      id="BACK"
+    ></div>
+    <img
+      src="/images/3.jpg"
+      alt="html"
+      width="200px"
+      height="150px"
+      id="html"
+      draggable="true"
+      ondragstart="startdrag(event)"
+    />
+
+    <script>
+      var elmentid;
+      function startdrag(event) {
+        elmentid = event.target.id;
+        document.getElementById("BACK").style.background = "red";
+      }
+      function dropimg(event) {
+        event.target.appendChild(document.getElementById(elmentid));
+      }
+    </script>
+  </body>
+</html>

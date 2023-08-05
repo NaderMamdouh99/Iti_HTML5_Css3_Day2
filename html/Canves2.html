@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas Drawing Example</title>
+  </head>
+  <body>
+    <!-- <svg width="400" heigth="800" style="border: 1px solid"></svg> -->
+    <canvas
+      id="myCanvas"
+      width="300"
+      height="300"
+      style="border: 1px solid"
+    ></canvas>
+    <script>
+      var canvas = document.getElementById("myCanvas");
+      var ctx = canvas.getContext("2d");
+      var isDrawing = false;
+      var isErasing = false;
+
+      canvas.addEventListener("mousedown", function (event) {
+        if (event.button === 0) {
+          isDrawing = true;
+        } else if (event.button === 2) {
+          isErasing = true;
+        }
+        if (isDrawing || isErasing) {
+          ctx.beginPath();
+          ctx.moveTo(
+            event.pageX - canvas.offsetLeft,
+            event.pageY - canvas.offsetTop
+          );
+        }
+      });
+
+      canvas.addEventListener("mousemove", function (event) {
+        if (isDrawing) {
+          ctx.lineTo(
+            event.pageX - canvas.offsetLeft,
+            event.pageY - canvas.offsetTop
+          );
+          ctx.stroke();
+        } else if (isErasing) {
+          ctx.clearRect(
+            event.pageX - canvas.offsetLeft,
+            event.pageY - canvas.offsetTop,
+            10,
+            10
+          );
+        }
+      });
+
+      canvas.addEventListener("mouseup", function (event) {
+        if (event.button === 0) {
+          isDrawing = false;
+        } else if (event.button === 2) {
+          isErasing = false;
+        }
+      });
+    </script>
+  </body>
+</html>
